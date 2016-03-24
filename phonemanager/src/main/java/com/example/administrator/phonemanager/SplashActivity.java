@@ -30,7 +30,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/*这是应用一进来的splash页面 用于       192.168.3.33
+/*这是应用一进来的splash页面 用于
 * 1.展示
 * 2.初始化
 * 3。检测更新
@@ -57,8 +57,8 @@ public class SplashActivity extends ActionBarActivity {
         PackageManager manager = getPackageManager();
         try {
             PackageInfo packageInfo = manager.getPackageInfo(getPackageName(),0);
-            int versionCode=packageInfo.versionCode;
-            versionName = packageInfo.versionName;
+            int versionCode=packageInfo.versionCode;//当前的版本号 用的是int型的
+            versionName = packageInfo.versionName;//当前的版本号 用的是name
             Log.i(tag,versionCode+"");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class SplashActivity extends ActionBarActivity {
         return  versionName;
     }
 
-    //得到服务器端的最新的版本号
+    //得到服务器端的最新的版本号  用httpURLconnection得到数据
     private void getNewVersion(){
 
         Log.i(tag,1+"");
@@ -97,10 +97,10 @@ public class SplashActivity extends ActionBarActivity {
                             String newVersiondescription  = obj.getString("newVersiondescription");//得到新版本的描述
                             String downlaodurl  = obj.getString("downurl");//得到要升级版本的apk
                             String []newversioninfo={newVersion,newVersiondescription,downlaodurl};
-                            Log.i(tag,4+newversioninfo.toString()+newVersiondescription);
+//                            Log.i(tag,4+newversioninfo.toString()+newVersiondescription);
                             Message msg = myhandler.obtainMessage();
                             msg.what=MSG_OK;
-                            msg.obj=newversioninfo;
+                            msg.obj=newversioninfo;//将string型数组发到主线程
                             myhandler.sendMessage(msg);
 
                         } catch (JSONException e) {
@@ -115,7 +115,7 @@ public class SplashActivity extends ActionBarActivity {
             }
         }.start();
     }
-
+    //接受子线程发来的消息
       Handler myhandler=new Handler(){
           @Override
           public void handleMessage(Message msg) {
@@ -123,16 +123,16 @@ public class SplashActivity extends ActionBarActivity {
               switch (msg.what){
                   case MSG_OK:
                       String[] info= (String[]) msg.obj;
-                      String version = info[0];
-                      String downurlnewVersiondescription = info[1];
-                      String downurl = info[2];
+                      String version = info[0];//版本号
+                      String downurlnewVersiondescription = info[1];//版本描述
+                      String downurl = info[2];//新版本高的URL
 
                       float newver = Float.parseFloat(version);//服务器上的最新的版本号
                       float currver = Float.parseFloat(current_version);//本地的版本号
 //                      Log.i(tag,version+newVersiondescription+downurl);
                       //如果服务器上的最新版本大于之前的版本则执行更新操作
                       if (newver>currver){
-                          update(info);
+                          update(info);//执行更新操作
                       }
                       break;
               }
@@ -153,7 +153,7 @@ public class SplashActivity extends ActionBarActivity {
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //进入到主页面
+                //点击取消则进入到主页面
 
             }
         })
@@ -182,6 +182,8 @@ public class SplashActivity extends ActionBarActivity {
         }
 
     }
+
+    //调用系统的安装函数进行安装更新的apk
     private void install(File f){
         Intent intent =new Intent();
         intent.setAction("android.intent.action.VIEW");
