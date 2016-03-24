@@ -183,7 +183,7 @@ public class SplashActivity extends ActionBarActivity {
 
     }
 
-    //调用系统的安装函数进行安装更新的apk
+    //调用系统的安装函数进行安装更新的apk这是刚更新的
     private void install(File f){
         Intent intent =new Intent();
         intent.setAction("android.intent.action.VIEW");
