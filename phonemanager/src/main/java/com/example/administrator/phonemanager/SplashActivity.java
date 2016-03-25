@@ -1,5 +1,6 @@
 package com.example.administrator.phonemanager;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,9 +11,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.administrator.application.MyApplication;
 import com.example.administrator.utils.HTTPUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -27,7 +30,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /*这是应用一进来的splash页面 用于
@@ -36,16 +38,25 @@ import java.net.URL;
 * 3。检测更新
 * 4.安全检测
 * 5.广告等*/
-public class SplashActivity extends ActionBarActivity {
-    String tag="哈哈哈啊哈哈";
-    private static final  int MSG_OK =1;
+public class SplashActivity extends Activity {
+    String tag="哈哈哈哈哈";
     private String current_version;//当前的版本号
+    private TextView tv_flash_showVersion;//在flash页面显示版本号
+
+    private static final  int MSG_OK =1;
+    private static final  int MSG_ERROR_INTERSEVER =-1;
+    private static final  int MSG_ERROR_URL =-2;
+    private static final  int MSG_ERROR_IO =-3;
+    private static final  int MSG_ERROR_JSON =-4;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash);
         current_version = getVersionName();
+        tv_flash_showVersion = (TextView) findViewById(R.id.tv_flash_ShowVersion);//在flash页面显示版本号
+        tv_flash_showVersion.setText(current_version);//设置版本号
         getNewVersion();
     }
 
@@ -59,58 +70,67 @@ public class SplashActivity extends ActionBarActivity {
             PackageInfo packageInfo = manager.getPackageInfo(getPackageName(),0);
             int versionCode=packageInfo.versionCode;//当前的版本号 用的是int型的
             versionName = packageInfo.versionName;//当前的版本号 用的是name
-            Log.i(tag,versionCode+"");
+            Log.i(tag,versionCode+"1");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        Log.i(tag,versionName);
+        Log.i(tag, versionName+"2");
         return  versionName;
     }
 
     //得到服务器端的最新的版本号  用httpURLconnection得到数据
     private void getNewVersion(){
 
-        Log.i(tag,1+"");
+        Log.i(tag,"3");
         new Thread(){
+
             @Override
             public void run() {
                 super.run();
-                String path="http://192.168.3.33/phonemanager/version.json";
+                String path = MyApplication.SERVER_PATH + "/version.json";
+                Message msg = myhandler.obtainMessage();//返回一个全局的message
                 try {
                     URL url = new URL(path);
+                    Log.i("哈哈哈哈","4"+url.toString());
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setRequestMethod("GET");
                     conn.setConnectTimeout(5000);
                     conn.setReadTimeout(5000);
                     conn.connect();
-                    int ret=conn.getResponseCode();
-                    Log.i(tag,2+ret+"");
+                    int ret = conn.getResponseCode();
+                    Log.i(tag, ret+"5");
                     //在这里进行json解析
-                    if (ret==200){
+                    if (ret==200) {
                         InputStream inputStream = conn.getInputStream();
-                        String text= HTTPUtils.getTextFromStream(inputStream);
+                        String text = HTTPUtils.getTextFromStream(inputStream);
                         inputStream.close();
-                        try {
-                            Log.i(tag,3+text+"");
-                            JSONObject obj = new JSONObject(text);
-                            String newVersion  = obj.getString("version");//得到版本号
-                            String newVersiondescription  = obj.getString("newVersiondescription");//得到新版本的描述
-                            String downlaodurl  = obj.getString("downurl");//得到要升级版本的apk
-                            String []newversioninfo={newVersion,newVersiondescription,downlaodurl};
-//                            Log.i(tag,4+newversioninfo.toString()+newVersiondescription);
-                            Message msg = myhandler.obtainMessage();
-                            msg.what=MSG_OK;
-                            msg.obj=newversioninfo;//将string型数组发到主线程
-                            myhandler.sendMessage(msg);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        Log.i(tag, "6"+"ResponseCode为："+ ret);
+                        JSONObject obj = new JSONObject(text);
+                        String newVersion = obj.getString("version");//得到版本号
+                        String newVersiondescription = obj.getString("newVersiondescription");//得到新版本的描述
+                        String downlaodurl = obj.getString("downurl");//得到要升级版本的apk
+                        String[] newversioninfo = {newVersion, newVersiondescription, downlaodurl};
+//                            Log.i(tag,4+newversioninfo.toString()+newVersiondescription);
+                        msg.what = MSG_OK;
+                        msg.obj = newversioninfo;//将string型数组发到主线程
+                        Log.i("哈哈哈哈7","ret为："+ret);
+
+
+                    } else {
+                        if (ret == 500) {
+                            msg.what = MSG_ERROR_INTERSEVER;
                         }
                     }
-                } catch (MalformedURLException e) {
+               } catch (IOException e) {
                     e.printStackTrace();
-                } catch (IOException e) {
+                    msg.what = MSG_ERROR_IO;
+                } catch (JSONException e) {
                     e.printStackTrace();
+                    msg.what=MSG_ERROR_JSON;
+                }finally {
+                    Log.i("啊哈哈哈哈8","ret为："+msg.toString());
+                    myhandler.sendMessage(msg);//发送应该在所有的msg都把内容提交之后发送  并且放到finally中 不然有异常的话不能够执行到的
                 }
             }
         }.start();
@@ -129,11 +149,22 @@ public class SplashActivity extends ActionBarActivity {
 
                       float newver = Float.parseFloat(version);//服务器上的最新的版本号
                       float currver = Float.parseFloat(current_version);//本地的版本号
-//                      Log.i(tag,version+newVersiondescription+downurl);
+                      Log.i(tag,"9"+version+newver+downurl);
                       //如果服务器上的最新版本大于之前的版本则执行更新操作
                       if (newver>currver){
                           update(info);//执行更新操作
                       }
+                  case MSG_ERROR_URL:
+                      Toast.makeText(SplashActivity.this,""+MSG_ERROR_URL,Toast.LENGTH_SHORT).show();
+                      enterHome();
+                      break;
+                  case MSG_ERROR_IO:
+                      Toast.makeText(SplashActivity.this,""+MSG_ERROR_IO,Toast.LENGTH_SHORT).show();
+                      enterHome();
+                      break;
+                  case MSG_ERROR_JSON:
+                      Toast.makeText(SplashActivity.this,""+MSG_ERROR_JSON,Toast.LENGTH_SHORT).show();
+                      enterHome();
                       break;
               }
           }
@@ -148,13 +179,26 @@ public class SplashActivity extends ActionBarActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         AsyncHttpClient client = new AsyncHttpClient();
-                        client.get("http://192.168.3.33/phonemanager/" + info[2], new MyAsyncHttpHandler());
+                        client.get(MyApplication.SERVER_PATH + info[2], new MyAsyncHttpHandler());
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //点击取消则进入到主页面
-
+                //在进入主页面前起一个线程睡一会 在flashactivity页面等一会
+              /*  new Thread(){
+                    @Override
+                    public void run() {
+                        super.run();
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();*/
+                Log.i("10","10");
+                enterHome();
             }
         })
                 .show();
@@ -172,13 +216,15 @@ public class SplashActivity extends ActionBarActivity {
                 install(file);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+                enterHome();
             } catch (IOException e) {
                 e.printStackTrace();
+                enterHome();
             }
 
         }
         public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-
+            enterHome();
         }
 
     }
@@ -191,4 +237,9 @@ public class SplashActivity extends ActionBarActivity {
         intent.setDataAndType(Uri.fromFile(f), "application/vnd.android.package-archive");
         startActivity(intent);
     }
+   private void enterHome(){
+       startActivity(new Intent(SplashActivity.this,HomeActivity.class));
+       finish();//将当前的页面从任务栈结束掉 这样返回键就不会回到这里了
+   }
+
 }

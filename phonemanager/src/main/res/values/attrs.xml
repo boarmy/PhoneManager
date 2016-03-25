@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--自定义控件 SettingItem为自定义控件的名字 itemtitle为自定义控件的属性名  string为自定义控件属性的类型-->
+    <declare-styleable name="SettingItem">
+        <attr name="itemtitle" format="string"/>
+        <attr name="onstring" format="string"/>
+        <attr name="offstring" format="string"/>
+        <attr name="sp_keyname" format="string"/>
+    </declare-styleable>
+
+</resources>
