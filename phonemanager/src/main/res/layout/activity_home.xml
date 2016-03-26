@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bbird"
     tools:context="com.example.administrator.phonemanager.HomeActivity">
     <!--android:ellipsize="marquee"  为将该控件设置为获得焦点的状态 从而现实跑马灯的效果-->
     <TextView
