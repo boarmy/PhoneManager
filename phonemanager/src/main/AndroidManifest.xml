@@ -4,7 +4,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name="com.example.administrator.application.MyApplication"
@@ -24,7 +29,26 @@
         </activity>
         <activity android:name=".HomeActivity" />
         <activity android:name=".SettingActivity" />
-        <activity android:name=".PhoneSafeActivity"></activity>
+        <activity android:name=".PhoneSafeActivity" />
+        <activity
+            android:name=".Setup1Activity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".Setup2Activity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".Setup3Activity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".Setup4Activity"
+            android:launchMode="singleTask" />
+        <activity android:name=".ContactListActivity"></activity>
+        <receiver android:name="com.example.administrator.receiver.MySmsReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

@@ -25,6 +25,7 @@ public class SettingItem extends RelativeLayout implements View.OnClickListener{
     private String onstring;
     private String offstring;
     private String sp_keyname;
+    private MyOnclickListen mylistener;
 
     public SettingItem(Context context) {
         super(context);
@@ -69,6 +70,8 @@ public class SettingItem extends RelativeLayout implements View.OnClickListener{
         super.setOnClickListener(this);
     }
 
+
+
     //这里的点击事件的个体就是指的是这个relative 即那三个控件的集合  点哪里都能触发
     @Override
     public void onClick(View v) {
@@ -82,6 +85,9 @@ public class SettingItem extends RelativeLayout implements View.OnClickListener{
             Log.i("fff", checked + "取消");
             editor.putBoolean(sp_keyname,false);
             editor.commit();
+            if (mylistener!=null){
+                mylistener.myCancleOnclick();
+            }
         }
         else {
             cb_setting_update.setChecked(true);
@@ -89,6 +95,19 @@ public class SettingItem extends RelativeLayout implements View.OnClickListener{
             Log.i("fff", checked + "开启");
             editor.putBoolean(sp_keyname, true);
             editor.commit();
+            if (mylistener!=null){
+                mylistener.myCheckOnclick();
+            }
         }
+    }
+    //setup2中的点击事件 中的抽象函数
+    public interface MyOnclickListen{
+
+        void  myCheckOnclick();
+        void  myCancleOnclick();
+    }
+    //如果点击了item就将mylistener的值变为传来的那个MyOnclickListen就是在那边new出来的那个  这是就不为空了 当点击时就按照这边的逻辑进行
+    public void setMyOnclickListener(MyOnclickListen l){
+        mylistener =l;
     }
 }
