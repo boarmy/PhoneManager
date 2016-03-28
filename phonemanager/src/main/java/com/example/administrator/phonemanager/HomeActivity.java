@@ -117,7 +117,7 @@ public class HomeActivity extends ActionBarActivity {
         }
     }
 
-    //用于显示用户第一次进入手机防盗时的弹出的对话框界面
+    //用于显示用户第一次进入手机防盗时的弹出的对话框界面 而且这里是自定义的dialog样式  把一个view用在了这里
     private void showSetpwdDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View v = View.inflate(this, R.layout.setpwd_dialog, null);
@@ -127,7 +127,7 @@ public class HomeActivity extends ActionBarActivity {
         Button bt_setpwddialog_confirm = (Button) v.findViewById(R.id.bt_setpwddialog_confirm);
         Button bt_setpwddialog_cancle = (Button) v.findViewById(R.id.bt_setpwddialog_cancle);
 
-        builder.setView(v);
+        builder.setView(v);//设置dialog的样式为一个view
         final AlertDialog dialog = builder.create();
         dialog.show();
         //点击确定的话
