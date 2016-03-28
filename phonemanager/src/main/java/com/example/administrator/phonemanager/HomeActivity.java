@@ -23,7 +23,7 @@ public class HomeActivity extends ActionBarActivity {
     private int[] iconarray ={R.drawable.safe,R.drawable.callmsgsafe,R.drawable.app,
             R.drawable.taskmanager,R.drawable.netmanager,R.drawable.trojan,
             R.drawable.sysoptimize,R.drawable.atools,R.drawable.settings};
-    //初始化名称
+    //初始化名称是啊
     private  String[] titles={"手机防盗","通讯卫士","软件管理", "进程管理","流量统计","手机杀毒", "缓存清理","高级工具","设置中心"};
     private GridView gv_home_content;
     private final int  CONTENT_NUM = 9;//设置页面的控件数
