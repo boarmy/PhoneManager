@@ -1,6 +1,5 @@
 package com.example.administrator.phonemanager;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -10,7 +9,7 @@ import android.widget.Toast;
 import com.example.administrator.application.MyApplication;
 import com.example.administrator.view.SettingItem;
 
-public class Setup2Activity extends Activity {
+public class Setup2Activity extends SetupBase {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

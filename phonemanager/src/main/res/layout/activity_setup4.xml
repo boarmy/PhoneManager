@@ -24,6 +24,12 @@
         settingitem:onstring="SIM卡已经绑定"
         settingitem:offstring="SIM卡没有绑定"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点此激活管理员权限"
+        android:onClick="active"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

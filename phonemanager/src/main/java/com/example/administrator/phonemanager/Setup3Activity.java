@@ -1,6 +1,5 @@
 package com.example.administrator.phonemanager;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 import com.example.administrator.application.MyApplication;
 
 //输入联系人的号码 这里用两种方法  方法1 直接调用系统的联系人的功能  方法2 自己从练习人的数据库中查询出来 然后通过listview显示到界面上来并通过点击事件来获得点击的电话号码
-public class Setup3Activity extends Activity {
+public class Setup3Activity extends SetupBase {
 
 
     private EditText et_setup3_safenum;

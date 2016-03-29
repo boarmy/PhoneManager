@@ -42,13 +42,37 @@
         <activity
             android:name=".Setup4Activity"
             android:launchMode="singleTask" />
-        <activity android:name=".ContactListActivity"></activity>
+        <activity android:name=".ContactListActivity" />
+
         <receiver android:name="com.example.administrator.receiver.MySmsReceiver">
             <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
 
+        <service android:name="com.example.administrator.service.MyNumberLocationService" />
+        <service android:name="com.example.administrator.service.MyUpdateLocationService" />
+
+        <receiver android:name="com.example.administrator.receiver.MyBootCompleteReceiver" />
+        <!-- 激活管理员的静态注册 -->
+
+        <receiver
+            android:name="com.example.administrator.receiver.MyDericeAdminReceiver"
+            android:description="@string/sample_device_admin_description"
+            android:label="@string/sample_device_admin"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin_sample" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".AdvanceToolActivity" />
+        <activity android:name=".QueryLocationActivity" />
+        <activity android:name=".JsonWeatherActivity"></activity>
     </application>
 
 </manifest>

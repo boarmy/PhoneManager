@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">手机卫士</string>
+    <string name="sample_device_admin">手机卫士管理员</string>
+    <string name="sample_device_admin_description">这里是激活手机卫士的管理权限，请务必激活，不然无法开启一些服务。</string>
 </resources>
