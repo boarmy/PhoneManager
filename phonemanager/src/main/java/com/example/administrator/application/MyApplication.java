@@ -28,6 +28,11 @@ public class MyApplication extends Application {
         editor.putString(key,value);
         editor.commit();
     }
+    public static void setConfigValue(String key, int value){
+
+        editor.putInt(key,value);
+        editor.commit();
+    }
 
     @Override
     public void onTerminate() {
