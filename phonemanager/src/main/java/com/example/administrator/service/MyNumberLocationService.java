@@ -88,7 +88,7 @@ public class MyNumberLocationService extends Service{
 
     }
 
-    //如果是闲置的状态则清除之前的窗口
+    //如果是闲置的状态则清除之前的窗口ww
     private void hideLocationVIew() {
         if (mWM!=null){
             mWM.removeView(v);//移除所有的窗口
