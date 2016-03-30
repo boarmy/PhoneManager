@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.administrator.application.MyApplication;
 import com.example.administrator.dao.NumberLoactionDao;
 import com.example.administrator.phonemanager.R;
 
@@ -61,10 +62,11 @@ public class MyNumberLocationService extends Service{
         }
     }
 
+    //设置当来电话的时候显示归属地的布局样式
     private void showLocationView(String location) {
         LayoutInflater inflate = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = inflate.inflate(R.layout.mynumberlocation, null);//将要显示的布局文件 view
-        TextView message = (TextView) v.findViewById(R.id.message);
+        TextView message = (TextView) v.findViewById(R.id.tv_number_message);
         message.setText(location);
         mWM = (WindowManager)getSystemService(Context.WINDOW_SERVICE);//得到一个窗口管理者  当然它的作用是用来管理窗口的
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams();//新建一个窗口
@@ -72,6 +74,10 @@ public class MyNumberLocationService extends Service{
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         params.width = WindowManager.LayoutParams.WRAP_CONTENT;
         params.format = PixelFormat.TRANSLUCENT;
+        //将显示的textview的位置设置为在设置页面设置的位置
+        params.x=MyApplication.configsp.getInt("toastx",200);
+        params.y=MyApplication.configsp.getInt("toasty",300)-100;
+
         params.type = WindowManager.LayoutParams.TYPE_TOAST;
         params.flags = WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
