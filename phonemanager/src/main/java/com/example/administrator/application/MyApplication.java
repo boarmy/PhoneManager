@@ -20,7 +20,10 @@ public class MyApplication extends Application {
         SERVER_PATH = "http://192.168.3.31/Aday10Network/";
         configsp = getSharedPreferences("config", MODE_PRIVATE);
         editor=configsp.edit();
-        startService(new Intent(this, MyNumberLocationService.class));
+        if(configsp.getBoolean("showloaction",false))
+        {
+            startService(new Intent(this, MyNumberLocationService.class));
+        }
     }
     //设置数据并销毁这个界面
     public static void setConfigValue(String key, String value){

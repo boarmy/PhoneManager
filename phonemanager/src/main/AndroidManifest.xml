@@ -72,7 +72,8 @@
 
         <activity android:name=".AdvanceToolActivity" />
         <activity android:name=".QueryLocationActivity" />
-        <activity android:name=".JsonWeatherActivity"></activity>
+        <activity android:name=".JsonWeatherActivity" />
+        <activity android:name=".PackageManagerActivity"></activity>
     </application>
 
 </manifest>

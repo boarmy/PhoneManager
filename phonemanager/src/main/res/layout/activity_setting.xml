@@ -26,4 +26,9 @@
         settingitem:onstring="显示归属地开启"
         settingitem:offstring="显示归属地关闭"
         settingitem:sp_keyname="showloaction"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="design"
+        android:text="定制归属地的位置"/>
 </LinearLayout>

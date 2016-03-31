@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Created by Administrator on 2016/3/26.
  */
+//进行md5加密算法
 public class Md5Utils {
     public static String getMd5Digest(String password){
         String afterpassword="";
