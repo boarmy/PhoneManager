@@ -11,6 +11,23 @@ public class AppInfo {
     Drawable icon;
     boolean isSdcard;//true 表示装在sdcard false 表示装在ROM中
     boolean isSystem;//true 表示系统应用， false 表示用户自己安装的应用
+    String packagename;
+
+    public String getPackagename() {
+        return packagename;
+    }
+
+    public AppInfo(String appname, Drawable icon, boolean isSdcard, boolean isSystem, String packagename) {
+        this.appname = appname;
+        this.icon = icon;
+        this.isSdcard = isSdcard;
+        this.isSystem = isSystem;
+        this.packagename = packagename;
+    }
+
+    public void setPackagename(String packagename) {
+        this.packagename = packagename;
+    }
 
     public String getAppname() {
         return appname;

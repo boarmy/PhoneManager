@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:name="com.example.administrator.application.MyApplication"
@@ -73,7 +74,13 @@
         <activity android:name=".AdvanceToolActivity" />
         <activity android:name=".QueryLocationActivity" />
         <activity android:name=".JsonWeatherActivity" />
-        <activity android:name=".PackageManagerActivity"></activity>
+        <activity android:name=".PackageManagerActivity" />
+        <activity android:name=".LockAppActivity"
+            android:launchMode="singleInstance"></activity>
+        <service android:name="com.example.administrator.service.MyLockAppService"/>
+        <provider
+            android:authorities="com.cskaoyan.app"
+            android:name="com.example.administrator.provider.MyAppLockProvider"/>
     </application>
 
 </manifest>
