@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/><!--清理应用的权限-->
     <application
         android:name="com.example.administrator.application.MyApplication"
         android:allowBackup="true"
@@ -75,12 +75,17 @@
         <activity android:name=".QueryLocationActivity" />
         <activity android:name=".JsonWeatherActivity" />
         <activity android:name=".PackageManagerActivity" />
-        <activity android:name=".LockAppActivity"
-            android:launchMode="singleInstance"></activity>
-        <service android:name="com.example.administrator.service.MyLockAppService"/>
+        <activity
+            android:name=".LockAppActivity"
+            android:launchMode="singleInstance" />
+
+        <service android:name="com.example.administrator.service.MyLockAppService" />
+
         <provider
-            android:authorities="com.cskaoyan.app"
-            android:name="com.example.administrator.provider.MyAppLockProvider"/>
+            android:name="com.example.administrator.provider.MyAppLockProvider"
+            android:authorities="com.cskaoyan.app" />
+
+        <activity android:name=".ProcessManagerActivity"></activity>
     </application>
 
 </manifest>

@@ -44,7 +44,7 @@ public class MyLockAppService  extends Service{
         registerReceiver(receiver, filter);                      //注册广播接受者
 
         lockedapplist=dao.getAllLockApp();
-        getContentResolver().registerContentObserver(Uri.parse("content://com.cskaoyan.app"),false,new MyObserver(new Handler()));
+        getContentResolver().registerContentObserver(Uri.parse("content://com.example.administrator"),false,new MyObserver(new Handler()));
         new Thread(){
             @Override
             public void run() {

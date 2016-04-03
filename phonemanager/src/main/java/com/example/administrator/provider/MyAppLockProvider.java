@@ -38,14 +38,14 @@ public class MyAppLockProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         db.insert("lockapp", null, values);
-        getContext().getContentResolver().notifyChange(Uri.parse("content://com.cskaoyan.app"),null);
+        getContext().getContentResolver().notifyChange(Uri.parse("content://com.example.administrator"),null);
         return null;
     }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         db.delete("lockapp",selection,selectionArgs);
-        getContext().getContentResolver().notifyChange(Uri.parse("content://com.cskaoyan.app"), null);
+        getContext().getContentResolver().notifyChange(Uri.parse("content://com.example.administrator"), null);
         return 0;
     }
 
