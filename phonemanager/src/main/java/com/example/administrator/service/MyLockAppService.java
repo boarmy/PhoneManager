@@ -21,6 +21,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/4/1.
  */
+//注册一个服务 用来不停地接收内容的变化 这里面有广播接收者  内容观察者
 public class MyLockAppService  extends Service{
     private ActivityManager ams;
     private LockAppDao dao ;
@@ -40,7 +41,7 @@ public class MyLockAppService  extends Service{
         //动态注册广播接收者
         MyReceiver receiver = new MyReceiver();
         IntentFilter filter = new IntentFilter();
-        filter.addAction("com.cskaoyan.mobilemanager.tempunlock");//接受广播动作为com.cskaoyan.mobilemanager.tempunlock的广播
+        filter.addAction("com.example.administrator.tempunlock");//接受广播动作为com.example.administrator.tempunlock的广播
         registerReceiver(receiver, filter);                      //注册广播接受者
 
         lockedapplist=dao.getAllLockApp();
@@ -74,6 +75,7 @@ public class MyLockAppService  extends Service{
 
         return super.onStartCommand(intent, flags, startId);
     }
+    //建立一个广播接收者
     class MyReceiver extends BroadcastReceiver {
 
         @Override

@@ -12,6 +12,8 @@ import com.example.administrator.db.MyLockAppDBHelper;
 /**
  * Created by Administrator on 2016/4/1.
  */
+
+//为了在进程管理中选中的进程名称 在当它存储在数据库中的内容发生变化时 及时的通知listview让它及时更新 而注册的一个内容提供者ContentProvider 作用为共享数据
 public class MyAppLockProvider extends ContentProvider {
     private MyLockAppDBHelper helper;
     SQLiteDatabase db;
@@ -38,14 +40,14 @@ public class MyAppLockProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         db.insert("lockapp", null, values);
-        getContext().getContentResolver().notifyChange(Uri.parse("content://com.example.administrator"),null);
+        getContext().getContentResolver().notifyChange(Uri.parse("content://com.example.administrator.phonemanager"),null);
         return null;
     }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         db.delete("lockapp",selection,selectionArgs);
-        getContext().getContentResolver().notifyChange(Uri.parse("content://com.example.administrator"), null);
+        getContext().getContentResolver().notifyChange(Uri.parse("content://com.example.administrator.phonemanager"), null);
         return 0;
     }
 

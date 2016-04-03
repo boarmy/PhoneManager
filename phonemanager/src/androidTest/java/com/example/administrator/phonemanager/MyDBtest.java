@@ -18,9 +18,9 @@ public class MyDBtest extends AndroidTestCase {
     public void testInsert(){
 
         LockAppDao dao = new LockAppDao(getContext());
-        dao.inserttoDb("com.cskaoyan.myapp");
-        //assertEquals(1, dao.inserttoDb("com.cskaoyan.myapp"));
-        assertTrue(dao.isLocked("com.cskaoyan.myapp"));
+        dao.inserttoDb("com.example.administrator");
+        //assertEquals(1, dao.inserttoDb("com.example.administrator"));
+        assertTrue(dao.isLocked("com.example.administrator"));
     }
 
 

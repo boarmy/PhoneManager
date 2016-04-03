@@ -83,9 +83,16 @@
 
         <provider
             android:name="com.example.administrator.provider.MyAppLockProvider"
-            android:authorities="com.cskaoyan.app" />
+            android:authorities="com.example.administrator" />
 
         <activity android:name=".ProcessManagerActivity"></activity>
+       <receiver android:name="com.example.administrator.widget.MyAppWidgetProvider">
+           <intent-filter>
+               <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+           </intent-filter>
+           <meta-data android:name="android.appwidget.provider"
+               android:resource="@xml/example_appwidget_info" />
+       </receiver>
     </application>
 
 </manifest>

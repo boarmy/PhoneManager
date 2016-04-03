@@ -37,14 +37,14 @@ public class LockAppDao {
         return db.insert("lockapp",null,cv);*/
         ContentValues cv=new ContentValues();//用内容提供者来判断锁定的应用是否改变  这样可以随时更新应用的信息 防止应用更新不及时
         cv.put("packagename", pkg);
-        ctx.getContentResolver().insert(Uri.parse("content://com.cskaoyan.app"), cv);
+        ctx.getContentResolver().insert(Uri.parse("content://com.example.administrator.phonemanager"), cv);
         return  0;
     }
     public int deleteFromDb(String pkg){
       /*  String[]i={pkg};
         return db.delete("lockapp", "packagename=?", i);*/
         String[] args={pkg};
-        return  ctx.getContentResolver().delete(Uri.parse("content://com.cskaoyan.app"), "packagename=?",args);
+        return  ctx.getContentResolver().delete(Uri.parse("content://com.example.administrator.phonemanager"), "packagename=?",args);
     }
     //得到所有的加了锁的应用
     public List<String> getAllLockApp(){

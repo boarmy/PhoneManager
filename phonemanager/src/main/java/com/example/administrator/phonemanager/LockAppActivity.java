@@ -44,7 +44,7 @@ public class LockAppActivity extends ActionBarActivity {
             //临时解锁0--》 告诉service我们的应用是临时解锁的应用，不要加锁
 
             Intent applock = new Intent();
-            applock.setAction("com.cskaoyan.mobilemanager.tempunlock");
+            applock.setAction("com.example.administrator.tempunlock");
             applock.putExtra("package",packagename);
             sendBroadcast(applock);
             finish();
