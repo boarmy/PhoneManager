@@ -64,20 +64,20 @@ public class SplashActivity extends Activity {
         else{
             waitaWhile();
         }
-        copydb();
-
+        copydb("naddress.db");
+        copydb("antivirus.db");
     }
 
 
     //将数据库从src/main/assets目录下 copy到 data/data/packagename/
-    public void copydb(){
-        File db = new File("data/data/" + getPackageName() + "/location.db");
+    public void copydb(String dbname){
+        File db = new File("data/data/" + getPackageName() + "/"+dbname);
         if (db.exists()){
             return;
         }else {
             AssetManager assets = getAssets();
             try {
-                InputStream open = assets.open("naddress.db");
+                InputStream open = assets.open(dbname);
                 FileOutputStream fos = new FileOutputStream(db);
                 byte[] bytes = new byte[1024];
                 int len=-1;
@@ -91,6 +91,7 @@ public class SplashActivity extends Activity {
             }
         }
     }
+
 
     //得到当前的版本号
     private String getVersionName() {

@@ -1,5 +1,9 @@
 package com.example.administrator.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -28,5 +32,47 @@ public class Md5Utils {
             e.printStackTrace();
         }
         return  afterpassword;
+    }
+    public  static String  getAppMd5Digest(String apklocation){
+        String afterencyp="";
+        byte[]digest= null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("md5");
+            File file = new File(apklocation);
+            //如果文件不存在就拷贝文件
+            if (file.exists()) {
+                FileInputStream fis = new FileInputStream(file);
+                byte[] buffer = new byte[1024];
+                int len = -1;
+                while ((len = fis.read(buffer, 0, 1024)) != -1) {
+                    md.update(buffer, 0, len);
+                }
+                fis.close();
+                digest = md.digest();
+            }
+            //如果文件存在就从病毒库中找是否有与之对应的病毒软件 有则杀之
+            if (digest!=null){
+                {
+                    StringBuffer result= new StringBuffer();//变长的string
+                    for (byte b : digest) {
+                        int ret = b&0xFF;
+                        String hexstring = Integer.toHexString(ret);
+                        if (hexstring.length()==1) {
+                            result.append("0");
+                        }
+                        result.append(hexstring);
+                    }
+                    System.out.println(result);
+                    afterencyp=result.toString();
+                }
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return  afterencyp;
     }
 }
