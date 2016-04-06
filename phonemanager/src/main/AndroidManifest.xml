@@ -14,6 +14,8 @@
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
     <uses-permission android:name="android.permission.CLEAR_APP_CACHE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
 
     <!-- 清理应用的权限 -->
     <application
@@ -102,7 +104,13 @@
         </receiver>
 
         <activity android:name=".ClearCatchActivity" />
-        <activity android:name=".ScanVirusActivity"></activity>
+        <activity android:name=".ScanVirusActivity" />
+        <activity android:name=".TelephoneManagerActivity" />
+        <activity android:name=".DataUsageActivity"></activity>
+
+        <service android:name="com.example.administrator.service.BlackNumberService"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>

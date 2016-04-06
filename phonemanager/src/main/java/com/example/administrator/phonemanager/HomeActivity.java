@@ -1,10 +1,9 @@
 package com.example.administrator.phonemanager;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,7 +17,7 @@ import android.widget.Toast;
 import com.example.administrator.application.MyApplication;
 import com.example.administrator.utils.Md5Utils;
 
-public class HomeActivity extends ActionBarActivity {
+public class HomeActivity extends Activity {
     //初始化图片
     private int[] iconarray ={R.drawable.safe,R.drawable.callmsgsafe,R.drawable.app,
             R.drawable.taskmanager,R.drawable.netmanager,R.drawable.trojan,
@@ -33,8 +32,8 @@ public class HomeActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         //将标题栏隐藏
-        ActionBar supportActionBar = getSupportActionBar();
-        supportActionBar.hide();
+        /*ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.hide();*/
 
 //        TextView tv_home_show = (TextView) findViewById(R.id.tv_home_show);//找到要跑马灯效果的文本  //方法1  方法2为用自定义控件
 //        tv_home_show.setSelected(true);//使其获得焦点 能够显示为跑马灯的效果
@@ -89,7 +88,8 @@ public class HomeActivity extends ActionBarActivity {
                     }
                     break;
                 case 1:
-                    Toast.makeText(HomeActivity.this, titles[position], Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(HomeActivity.this,TelephoneManagerActivity.class));
+//                    Toast.makeText(HomeActivity.this, titles[position], Toast.LENGTH_SHORT).show();
                     break;
                 case 2:
                     startActivity(new Intent(HomeActivity.this,PackageManagerActivity.class));
@@ -98,7 +98,8 @@ public class HomeActivity extends ActionBarActivity {
                     startActivity(new Intent(HomeActivity.this,ProcessManagerActivity.class));
                     break;
                 case 4:
-                    Toast.makeText(HomeActivity.this, titles[position], Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(HomeActivity.this,DataUsageActivity.class));
+//                    Toast.makeText(HomeActivity.this, titles[position], Toast.LENGTH_SHORT).show();
                     break;
                 case 5:
                     startActivity(new Intent(HomeActivity.this, ScanVirusActivity.class));

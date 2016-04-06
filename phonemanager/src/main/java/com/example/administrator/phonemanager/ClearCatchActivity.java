@@ -29,7 +29,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
+//缓存清理主页面
 public class ClearCatchActivity extends Activity {
     private ProgressBar pb_clearcache_scan;
     private TextView tv_clearcache_appname;
