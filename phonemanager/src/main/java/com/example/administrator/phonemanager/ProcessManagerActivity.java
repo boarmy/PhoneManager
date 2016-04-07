@@ -18,7 +18,7 @@ import com.example.administrator.utils.ProcessUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//进程管理主页面
 public class ProcessManagerActivity extends Activity {
 
     private ListView lv_process_appinfo;

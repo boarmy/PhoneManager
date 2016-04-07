@@ -31,19 +31,14 @@ public class LockAppActivity extends ActionBarActivity {
         intent.setAction(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         startActivity(intent);
-
     }
 
     //设置的解锁密码页面密码为123
     public void check(View v){
-
-
         final String s = et_lockapp_password.getText().toString();
         if (s.equals("123")){
-
             //解锁
             //临时解锁0--》 告诉service我们的应用是临时解锁的应用，不要加锁
-
             Intent applock = new Intent();
             applock.setAction("com.example.administrator.tempunlock");//在这里注册解锁的广播
             applock.putExtra("package",packagename);

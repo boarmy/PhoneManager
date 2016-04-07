@@ -48,7 +48,7 @@ public class ClearCatchActivity extends Activity {
         tv_clearcache_appname = (TextView) findViewById(R.id.tv_clearcache_appname);
         lv_clearcache_cachelist = (ListView) findViewById(R.id.lv_clearcache_cachelist);
         bt_clearcache_clear = (Button) findViewById(R.id.bt_clearcache_clear);
-        //因为加载为耗时操作 所以用异步加载的方式
+        //因为加载为耗时操作 所以用异步加载的方式 没
         new AsyncTask<Void, Integer, Float>() {
             List<AppInfo> allAppInfo;
             int count=0;
@@ -66,9 +66,10 @@ public class ClearCatchActivity extends Activity {
             @Override
             protected Float doInBackground(Void... params) {
                 while (count<allAppInfo.size()){
-                    //拿到每个应用的缓存信息 由于不能直接拿 所以用反射的方法来拿
+                    //拿到每个应用的缓存信息 由于不能直接拿 所以用反射的方法来拿 getPackageSizeInfo
                     try {
-                        Class<?> pmClass = ClearCatchActivity.this.getClassLoader().loadClass("android.content.pm.PackageManager");//得到要用反射加载的类class
+                        //得到要用反射加载的类class
+                        Class<?> pmClass = ClearCatchActivity.this.getClassLoader().loadClass("android.content.pm.PackageManager");
                         Method getPackageSizeInfo = pmClass.getMethod("getPackageSizeInfo", String.class, IPackageStatsObserver.class);
                         getPackageSizeInfo.invoke(mPm,allAppInfo.get(count).getPackagename(),mStatsObserver);
 

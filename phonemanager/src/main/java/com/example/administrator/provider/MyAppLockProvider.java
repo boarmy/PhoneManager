@@ -40,6 +40,7 @@ public class MyAppLockProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         db.insert("lockapp", null, values);
+        //当发出这个的时候内容观察者就会被调用 即MyLockAppService中的MyObserver会调用到 从而
         getContext().getContentResolver().notifyChange(Uri.parse("content://com.example.administrator.phonemanager"),null);
         return null;
     }

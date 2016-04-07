@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/3/31.
  */
+//应用管理的工具类
 public class PackageUtils {
     //获取sdkcard的可用空间
     public static long getAvailableSDcardSize() {

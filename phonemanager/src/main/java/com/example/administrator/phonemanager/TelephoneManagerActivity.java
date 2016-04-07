@@ -130,7 +130,7 @@ public class TelephoneManagerActivity extends Activity {
                                 Log.i("哈哈",dao.updateeMode(currentlistitem.blacknum, which + 1)+"");
                             }
                         }).show();
-                return false;
+                return true;//这里返回true的话在长按的时候就不会出现setOnItemClickListener的事件 但如果返回false的话就会在longitem后执行setOnItemClickListener事件
             }
         });
         lv_phonemanager_blacknum.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -154,6 +154,7 @@ public class TelephoneManagerActivity extends Activity {
                 }
             }
             //滑动的时候执行
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 //                Log.i("哈哈",11+"");

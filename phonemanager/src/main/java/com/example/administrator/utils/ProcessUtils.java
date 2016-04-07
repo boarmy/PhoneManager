@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/4/2.
  */
+//进程管理的工具类
 public class ProcessUtils {
 
     //当前的进程数

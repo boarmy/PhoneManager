@@ -34,7 +34,8 @@ public class LockAppDao {
     public long inserttoDb(String pkg){
        /* ContentValues cv = new ContentValues();
         cv.put("packagename",pkg);
-        return db.insert("lockapp",null,cv);*/
+        return db.insert("lockapp",null,cv);//这里返回的是更改影响的行号 而不是影响的行数
+        */
         ContentValues cv=new ContentValues();//用内容提供者来判断锁定的应用是否改变  这样可以随时更新应用的信息 防止应用更新不及时
         cv.put("packagename", pkg);
         ctx.getContentResolver().insert(Uri.parse("content://com.example.administrator.phonemanager"), cv);

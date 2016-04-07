@@ -22,4 +22,11 @@ public class MyTextView extends TextView{
 //        return super.isFocused();
         return true;//使该控件一直处于选中状态
     }
+
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+       setMeasuredDimension(getMeasuredWidth(),getMeasuredHeight());
+    }
 }

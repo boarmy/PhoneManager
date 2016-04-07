@@ -313,7 +313,7 @@ public class PackageManagerActivity extends ActionBarActivity implements View.On
             * */
             if (convertView!=null&&convertView instanceof RelativeLayout){//如果
                 item=convertView;
-                holder= (ViewHolder) item.getTag();
+                holder= (ViewHolder) item.getTag();//通过tag找到缓存的布局
             }else {
                 item=View.inflate(PackageManagerActivity.this, R.layout.item_applist,null);//设置listview的填充的布局文件
                 ImageView iv_applist_icon = (ImageView) item.findViewById(R.id.iv_applist_icon);
@@ -326,7 +326,7 @@ public class PackageManagerActivity extends ActionBarActivity implements View.On
                 holder.tv_applist_appname =tv_applist_appname;
                 holder.tv_applist_location=tv_applist_location;
                 holder.iv_applist_lock =iv_applist_lock;
-                item.setTag(holder);
+                item.setTag(holder);//将布局加入到tag缓存中去  tag（标签）
             }
             //这里为为每个view赋值
             holder.iv_applist_icon.setImageDrawable(appInfo.getIcon());
